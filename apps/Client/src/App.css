@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+/* GadgetHub design tokens, from the Figma design: one violet brand colour,
+   near-black ink, cool greys, and red/green/amber for status. Every colour,
+   shadow and animation used in the app is named here, so the look can be
+   changed in one place. The emails (apps/Server/src/emails/layout.ts) use the
+   same palette. */
+@theme static {
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand: #6c4cf1;
+  --color-brand-dark: #5a3ce0;
+  --color-brand-soft: #f3f0ff;
+  --color-brand-tint: #e6e0ff;
+  --color-brand-light: #8f67ef;
+
+  --color-ink: #191c1f;
+  --color-ink-soft: #475156;
+  --color-muted: #5f6c72;
+  --color-subtle: #807d7e;
+  --color-line: #e8e6e6;
+  --color-line-soft: #f1eeee;
+  --color-surface: #ffffff;
+  --color-canvas: #f6f5fb;
+  --color-panel: #f4f4f3;
+
+  /* The dark strips: the top bar and category bar (night), the footer (deep teal). */
+  --color-night: #191c1f;
+  --color-night-soft: #18202f;
+  --color-deep: #00262e;
+
+  --color-sale: #ea4335;
+  --color-sale-soft: #fff1ea;
+  --color-danger: #ee2020;
+  --color-danger-soft: #ffeded;
+  --color-success: #009320;
+  --color-success-soft: #e8ffed;
+  --color-info: #056ec8;
+  --color-info-soft: #e4f2ff;
+  --color-warning: #b86e00;
+  --color-warning-soft: #fff4dc;
+  --color-star: #f5a623;
+  --color-highlight: #efd33d;
+
+  --shadow-card: 0 2px 12px -2px rgba(25, 28, 31, 0.08);
+  --shadow-lift: 0 12px 28px -6px rgba(25, 28, 31, 0.16);
+  --shadow-float: 0 18px 48px -8px rgba(25, 28, 31, 0.24);
+
+  /* Small CSS animations. Use with motion-safe: so people who ask for
+     reduced motion don't get them. */
+  --animate-fade-up: fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in: fade-in 0.2s ease-out both;
+  --animate-slide-in: slide-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-pop: pop 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slide-in {
+    from { transform: translateX(100%); }
+    to { transform: none; }
+  }
+  @keyframes pop {
+    from { opacity: 0; transform: scale(0.96) translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Tailwind v4 no longer gives buttons a pointer cursor. */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+  /* 16px inputs stop iOS Safari zooming in when a field is tapped. */
+  input, select, textarea {
+    font-size: 16px;
+  }
+}
+
+/* The page width every section lines up to. */
+@utility container-page {
+  width: 100%;
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= 64rem) {
+    padding-inline: 1.5rem;
+  }
+}
+
+/* Horizontal rows (category rail, thumbnails) scroll without a scrollbar. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Loading placeholder with a moving sheen. */
+@utility skeleton {
+  background-image: linear-gradient(90deg, var(--color-panel) 25%, #fbfbfa 50%, var(--color-panel) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+/* react-toastify, restyled to match. */
+:root {
+  --toastify-font-family: var(--font-sans);
+  --toastify-color-light: #ffffff;
+  --toastify-text-color-light: var(--color-ink);
+  --toastify-color-success: var(--color-success);
+  --toastify-color-error: var(--color-danger);
+  --toastify-color-info: var(--color-brand);
+  --toastify-toast-bd-radius: 10px;
+  --toastify-toast-min-height: 52px;
+}
+.Toastify__toast {
+  box-shadow: var(--shadow-float);
+  font-size: 14px;
+}

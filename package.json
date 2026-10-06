@@ -1,0 +1,24 @@
+{
+  "name": "gadgethub",
+  "version": "1.0.0",
+  "description": "GadgetHub monorepo: Client (React shop + admin) and Server (Express + MongoDB API)",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,client -c green,magenta \"npm run dev -w @gadgethub/server\" \"npm run dev -w @gadgethub/client\"",
+    "sync:shared": "node scripts/sync-shared.mjs",
+    "build": "npm run sync:shared && npm run build --workspaces --if-present",
+    "typecheck": "npm run sync:shared && npm run typecheck --workspaces --if-present",
+    "dev:server": "npm run dev -w @gadgethub/server",
+    "dev:client": "npm run dev -w @gadgethub/client",
+    "seed:admin": "npm run seed:admin -w @gadgethub/server",
+    "seed:catalog": "npm run seed:catalog -w @gadgethub/server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  },
+  "license": "ISC"
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@gadgethub/shared",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}
